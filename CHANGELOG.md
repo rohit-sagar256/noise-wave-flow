@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-14
+
 ### Added
 - `gradient` config option — array of RGB strings for a linear gradient line color
 - `gradientAngle` config option — gradient direction in degrees (default 135)
@@ -29,5 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Pages demo site with live customizer panel
 - Local dev demo (`npm run demo`) importing directly from source
 
-[Unreleased]: https://github.com/rohit-sagar256/noise-wave-flow/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/rohit-sagar256/noise-wave-flow/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/rohit-sagar256/noise-wave-flow/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/rohit-sagar256/noise-wave-flow/releases/tag/v0.1.0

@@ -1,6 +1,6 @@
 {
   "name": "@elysian256/noise-wave-flow",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Organic noise-field canvas animation with wind-cursor effect. Framework-agnostic with a React hook included.",
   "keywords": [
     "canvas",
