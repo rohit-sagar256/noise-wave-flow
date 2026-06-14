@@ -185,7 +185,7 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         const windStrength = Math.min(windSpeed * 3.5, 1) * mouseIntensity;
 
         const effectStep = cfg.idleStep + (cfg.stepLen - cfg.idleStep) * mouseIntensity;
-        const flatAlpha  = cfg.alpha * (1 - mouseIntensity);
+        const flatAlpha  = cfg.alpha * (1 - mouseIntensity * 0.35);
 
         const farLines = [], nearLines = [];
 
@@ -234,7 +234,7 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         ctx.lineCap  = 'round';
         ctx.lineJoin = 'round';
 
-        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.08 * mouseIntensity})`;
+        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.12 * mouseIntensity})`;
         ctx.lineWidth   = 1.0;
         ctx.beginPath();
         for (const pts of farLines) {
@@ -243,7 +243,7 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         }
         ctx.stroke();
 
-        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.18 * mouseIntensity})`;
+        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.28 * mouseIntensity})`;
         ctx.lineWidth   = 1.1;
         ctx.beginPath();
         for (const pts of nearLines) {
