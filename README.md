@@ -142,7 +142,7 @@ const panel = createNoiseFlow(panelCanvas, panelEl, {
 | `windLerp` | `number` | `0.18` | Wind velocity lerp speed (0–1) |
 | `intensityLerp` | `number` | `0.055` | Mouse-hover fade-in / fade-out speed (0–1) |
 | `color` | `string` | `'255,255,255'` | RGB components for `rgba()`, e.g. `'37,99,235'` for blue |
-| `alpha` | `number` | `0.14` | Base opacity at idle |
+| `alpha` | `number` | `0.3` | Base opacity at idle |
 | `trackMouse` | `boolean` | `true` | Enable wind-cursor effect |
 | `trackScroll` | `boolean` | `true` | Enable scroll-drift on streamlines |
 | `worldOffset` | `{x,y}` \| `() => {x,y}` \| `'screen'` | `null` | Offset noise coordinates for spatial continuity across canvases |

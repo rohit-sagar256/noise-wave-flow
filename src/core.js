@@ -43,7 +43,7 @@ const DEFAULTS = {
     windLerp: 0.18,
     intensityLerp: 0.055,
     color: '255,255,255',
-    alpha: 0.14,
+    alpha: 0.3,
     trackMouse: true,
     trackScroll: true,
     worldOffset: null,
@@ -234,8 +234,8 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         ctx.lineCap  = 'round';
         ctx.lineJoin = 'round';
 
-        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.042 * mouseIntensity})`;
-        ctx.lineWidth   = 0.7;
+        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.08 * mouseIntensity})`;
+        ctx.lineWidth   = 1.0;
         ctx.beginPath();
         for (const pts of farLines) {
             ctx.moveTo(pts[0][0], pts[0][1]);
@@ -243,8 +243,8 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         }
         ctx.stroke();
 
-        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.095 * mouseIntensity})`;
-        ctx.lineWidth   = 0.75;
+        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.18 * mouseIntensity})`;
+        ctx.lineWidth   = 1.1;
         ctx.beginPath();
         for (const pts of nearLines) {
             ctx.moveTo(pts[0][0], pts[0][1]);

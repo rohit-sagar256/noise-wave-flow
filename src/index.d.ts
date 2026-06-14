@@ -22,7 +22,7 @@ export interface NoiseFlowConfig {
   intensityLerp?: number;
   /** RGB components for rgba(), e.g. '37,99,235'. Default: '255,255,255' */
   color?: string;
-  /** Base opacity at idle. Default: 0.14 */
+  /** Base opacity at idle. Default: 0.3 */
   alpha?: number;
   /** Enable wind-cursor effect. Default: true */
   trackMouse?: boolean;
