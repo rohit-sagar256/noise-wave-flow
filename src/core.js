@@ -47,6 +47,8 @@ const DEFAULTS = {
     trackMouse: true,
     trackScroll: true,
     worldOffset: null,
+    gradient: null,
+    gradientAngle: 135,
 };
 
 export function createNoiseFlow(canvas, container, userConfig = {}) {
@@ -67,6 +69,22 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
     let rafId = null;
     // For worldOffset:'screen'
     let screenOffsetX = 0, screenOffsetY = 0;
+    // For gradient
+    let cachedGradient = null;
+
+    // ── Gradient builder ───────────────────────────────────────────────────────
+    function buildGradient() {
+        if (!cfg.gradient || cfg.gradient.length < 2) { cachedGradient = null; return; }
+        const angle = (cfg.gradientAngle * Math.PI) / 180;
+        const cx = canvas.width / 2, cy = canvas.height / 2;
+        const len = Math.hypot(canvas.width, canvas.height) / 2;
+        const grad = ctx.createLinearGradient(
+            cx - Math.cos(angle) * len, cy - Math.sin(angle) * len,
+            cx + Math.cos(angle) * len, cy + Math.sin(angle) * len,
+        );
+        cfg.gradient.forEach((c, i) => grad.addColorStop(i / (cfg.gradient.length - 1), `rgb(${c})`));
+        cachedGradient = grad;
+    }
 
     // ── Resize ─────────────────────────────────────────────────────────────────
     function resize() {
@@ -81,6 +99,7 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
                 screenOffsetX = rect.left;
                 screenOffsetY = rect.top;
             }
+            buildGradient();
         }
     }
 
@@ -234,8 +253,13 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         ctx.lineCap  = 'round';
         ctx.lineJoin = 'round';
 
-        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.12 * mouseIntensity})`;
-        ctx.lineWidth   = 1.0;
+        if (cachedGradient) {
+            ctx.globalAlpha = flatAlpha + 0.12 * mouseIntensity;
+            ctx.strokeStyle = cachedGradient;
+        } else {
+            ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.12 * mouseIntensity})`;
+        }
+        ctx.lineWidth = 1.0;
         ctx.beginPath();
         for (const pts of farLines) {
             ctx.moveTo(pts[0][0], pts[0][1]);
@@ -243,14 +267,21 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         }
         ctx.stroke();
 
-        ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.28 * mouseIntensity})`;
-        ctx.lineWidth   = 1.1;
+        if (cachedGradient) {
+            ctx.globalAlpha = flatAlpha + 0.28 * mouseIntensity;
+            ctx.strokeStyle = cachedGradient;
+        } else {
+            ctx.strokeStyle = `rgba(${cfg.color},${flatAlpha + 0.28 * mouseIntensity})`;
+        }
+        ctx.lineWidth = 1.1;
         ctx.beginPath();
         for (const pts of nearLines) {
             ctx.moveTo(pts[0][0], pts[0][1]);
             for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
         }
         ctx.stroke();
+
+        if (cachedGradient) ctx.globalAlpha = 1;
     }
 
     rafId = requestAnimationFrame(frame);
@@ -259,6 +290,7 @@ export function createNoiseFlow(canvas, container, userConfig = {}) {
         /** Live-patch config without restarting the animation. */
         update(patch) {
             Object.assign(cfg, patch);
+            if ('gradient' in patch || 'gradientAngle' in patch) buildGradient();
         },
 
         destroy() {

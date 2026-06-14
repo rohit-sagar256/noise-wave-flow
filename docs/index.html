@@ -408,6 +408,34 @@
     </div>
   </div>
 
+  <div class="toggle-row">
+    <span class="toggle-label">gradient</span>
+    <label class="toggle">
+      <input type="checkbox" id="ctrl-gradient-on" onchange="onGradientToggle(this.checked)" />
+      <span class="toggle-track"></span><span class="toggle-thumb"></span>
+    </label>
+  </div>
+
+  <div id="gradient-ctrls" style="display:none;flex-direction:column;gap:0.9rem;">
+    <div class="ctrl">
+      <div class="ctrl-row">
+        <label>from</label>
+        <input type="color" id="ctrl-grad-from" value="#6366f1" oninput="onGradientColors()" />
+      </div>
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-row">
+        <label>to</label>
+        <input type="color" id="ctrl-grad-to" value="#ec4899" oninput="onGradientColors()" />
+      </div>
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-row"><label>angle</label><span class="ctrl-val" id="val-gradAngle">135</span></div>
+      <input type="range" id="ctrl-gradAngle" min="0" max="360" step="1" value="135"
+        oninput="onRange('gradientAngle', this.value, 'val-gradAngle')" />
+    </div>
+  </div>
+
   <div class="ctrl">
     <div class="ctrl-row">
       <label>alpha</label>
@@ -623,6 +651,21 @@ flow.<span class="fn">destroy</span>();               <span class="cm">// stop a
     window._flow?.update({ [key]: checked });
   }
 
+  function onGradientToggle(enabled) {
+    document.getElementById('gradient-ctrls').style.display = enabled ? 'flex' : 'none';
+    if (enabled) {
+      onGradientColors();
+    } else {
+      window._flow?.update({ gradient: null });
+    }
+  }
+
+  function onGradientColors() {
+    const from = hexToRgb(document.getElementById('ctrl-grad-from').value);
+    const to   = hexToRgb(document.getElementById('ctrl-grad-to').value);
+    window._flow?.update({ gradient: [from, to] });
+  }
+
   const DEFAULTS = {
     color: '#ffffff', alpha: 0.3, spacing: 30, steps: 6,
     stepLen: 8, idleStep: 2.5, windRadius: 200,
@@ -643,6 +686,8 @@ flow.<span class="fn">destroy</span>();               <span class="cm">// stop a
     document.getElementById('ctrl-intensityLerp').value = DEFAULTS.intensityLerp;
     document.getElementById('ctrl-trackMouse').checked  = DEFAULTS.trackMouse;
     document.getElementById('ctrl-trackScroll').checked = DEFAULTS.trackScroll;
+    document.getElementById('ctrl-gradient-on').checked = false;
+    document.getElementById('gradient-ctrls').style.display = 'none';
 
     document.getElementById('val-alpha').textContent        = DEFAULTS.alpha;
     document.getElementById('val-spacing').textContent      = DEFAULTS.spacing;

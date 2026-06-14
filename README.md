@@ -146,6 +146,8 @@ const panel = createNoiseFlow(panelCanvas, panelEl, {
 | `trackMouse` | `boolean` | `true` | Enable wind-cursor effect |
 | `trackScroll` | `boolean` | `true` | Enable scroll-drift on streamlines |
 | `worldOffset` | `{x,y}` \| `() => {x,y}` \| `'screen'` | `null` | Offset noise coordinates for spatial continuity across canvases |
+| `gradient` | `string[]` | `null` | Array of RGB strings for a linear gradient, e.g. `['99,102,241','236,72,153']`. Overrides `color` when set |
+| `gradientAngle` | `number` | `135` | Gradient direction in degrees (0 = left→right, 90 = top→bottom) |
 
 ---
 

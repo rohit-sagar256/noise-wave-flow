@@ -30,6 +30,13 @@ export interface NoiseFlowConfig {
   trackScroll?: boolean;
   /** Offset noise coords for spatial continuity across multiple canvases. Default: null */
   worldOffset?: WorldOffset | null;
+  /**
+   * Array of RGB strings to paint lines with a linear gradient instead of a flat color.
+   * e.g. `['99,102,241', '236,72,153']`. Overrides `color` when set. Default: null
+   */
+  gradient?: string[] | null;
+  /** Angle of the gradient in degrees (0 = left→right, 90 = top→bottom). Default: 135 */
+  gradientAngle?: number;
 }
 
 export interface NoiseFlowInstance {
