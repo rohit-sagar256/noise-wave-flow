@@ -15,7 +15,9 @@ description: Update the GitHub Pages demo site at docs/index.html. Use when chan
 3. **Commit and push** — no tag needed, GitHub Pages deploys automatically from `main`:
    ```bash
    git add docs/index.html
-   git commit -m "docs: <description of change>"
+   git commit -m "docs: <description of change>
+
+   Co-Authored-By: Claude <claude@anthropic.com>"
    git push origin main
    ```
 

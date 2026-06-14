@@ -17,7 +17,7 @@
     {
       "login": "anthropics",
       "name": "Claude (Anthropic)",
-      "avatar_url": "https://avatars.githubusercontent.com/anthropics",
+      "avatar_url": "https://github.com/anthropics.png",
       "profile": "https://claude.ai",
       "contributions": ["doc"]
     }

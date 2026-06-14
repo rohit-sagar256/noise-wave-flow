@@ -5,7 +5,10 @@ alwaysApply: true
 ## Agent rules
 
 - Git identity is always `rohit-sagar256 <dev.rohit256@gmail.com>` — set it before any commit if not already set.
-- Never add a Co-Authored-By trailer to commits.
+- **Co-author rule:** Do NOT add `Co-Authored-By` to code or release commits. For documentation-only commits (README, CHANGELOG, docs/, `.claude/` files), ADD the following trailer:
+  ```
+  Co-Authored-By: Claude <claude@anthropic.com>
+  ```
 - Never commit `dist/`, `node_modules/`, or `package-lock.json` — all three are in `.gitignore`.
 - Always run `npm run build` before publishing or tagging a release.
 

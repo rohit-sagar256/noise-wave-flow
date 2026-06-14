@@ -49,3 +49,7 @@ Example:
 - Each bullet is one change. Keep them short (one sentence).
 - Never delete old version sections — the changelog is a permanent record.
 - Commit the changelog update in the same commit as the version bump.
+- Changelog-only commits are documentation — add the Claude co-author trailer:
+  ```
+  Co-Authored-By: Claude <claude@anthropic.com>
+  ```
