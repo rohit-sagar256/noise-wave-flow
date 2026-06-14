@@ -20,6 +20,10 @@
     {
       "name": "Multioriontech",
       "url": "https://multioriontech.com"
+    },
+    {
+      "name": "Claude (Anthropic)",
+      "url": "https://claude.ai"
     }
   ],
   "repository": {

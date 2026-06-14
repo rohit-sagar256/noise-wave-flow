@@ -171,7 +171,8 @@ Touch is also tracked so the wind effect works on mobile.
 ## Credits
 
 Built by [Rohit Sagar](https://github.com/rohit-sagar256) at [Multioriontech](https://multioriontech.com).  
-Originally created for the [Multioriontech website](https://multioriontech.com).
+Originally created for the [Multioriontech website](https://multioriontech.com).  
+Developed with [Claude](https://claude.ai) by Anthropic.
 
 ---
 
