@@ -7,7 +7,7 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 jobs:
   publish:
@@ -25,3 +25,13 @@ jobs:
       - run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          NOTES=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md)
+          gh release create "$GITHUB_REF_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --notes "${NOTES:-Release $GITHUB_REF_NAME}"
