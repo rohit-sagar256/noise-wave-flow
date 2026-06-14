@@ -176,6 +176,19 @@ Developed with [Claude](https://claude.ai) by Anthropic.
 
 ---
 
+## Contributors
+
+Thanks to these people for their contributions:
+
+<!-- ALL-CONTRIBUTORS-LIST:START -->
+| Avatar | Name | Contributions |
+|--------|------|---------------|
+| [![rohit-sagar256](https://avatars.githubusercontent.com/rohit-sagar256?s=48)](https://github.com/rohit-sagar256) | [Rohit Sagar](https://github.com/rohit-sagar256) | 💻 Code · 🎨 Design · 🚀 Infra |
+| [![Claude](https://avatars.githubusercontent.com/anthropics?s=48)](https://claude.ai) | [Claude](https://claude.ai) (Anthropic) | 📖 Docs · 📝 README |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+---
+
 ## License
 
 MIT

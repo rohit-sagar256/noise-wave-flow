@@ -1,0 +1,25 @@
+{
+  "projectName": "noise-wave-flow",
+  "projectOwner": "rohit-sagar256",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md"],
+  "imageSize": 48,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "rohit-sagar256",
+      "name": "Rohit Sagar",
+      "avatar_url": "https://avatars.githubusercontent.com/rohit-sagar256",
+      "profile": "https://github.com/rohit-sagar256",
+      "contributions": ["code", "design", "infra"]
+    },
+    {
+      "login": "anthropics",
+      "name": "Claude (Anthropic)",
+      "avatar_url": "https://avatars.githubusercontent.com/anthropics",
+      "profile": "https://claude.ai",
+      "contributions": ["doc"]
+    }
+  ]
+}
