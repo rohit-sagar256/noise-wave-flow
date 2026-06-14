@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - run: npm run build
+
+      - name: Verify dist outputs exist
+        run: |
+          test -f dist/index.js   || (echo "dist/index.js missing"   && exit 1)
+          test -f dist/index.cjs  || (echo "dist/index.cjs missing"  && exit 1)
+          test -f dist/react.js   || (echo "dist/react.js missing"   && exit 1)
+          test -f dist/react.cjs  || (echo "dist/react.cjs missing"  && exit 1)

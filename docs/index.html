@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>noise-wave-flow</title>
+  <meta name="description" content="Organic noise-field canvas animation with a wind-cursor effect. Framework-agnostic with a React hook included." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07070f;
+      --text: #e8e8f0;
+      --muted: #7777aa;
+      --accent: #6366f1;
+      --border: rgba(255,255,255,0.07);
+      --code-bg: rgba(255,255,255,0.05);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      max-width: 700px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(99,102,241,0.45);
+      border-radius: 999px;
+      padding: 0.25rem 0.8rem;
+      margin-bottom: 1.75rem;
+    }
+
+    h1 {
+      font-size: clamp(2.75rem, 8vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 1.1rem;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    .install-wrap {
+      margin-bottom: 2.5rem;
+    }
+
+    .install {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem 1.3rem;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      user-select: none;
+    }
+
+    .install:hover { border-color: rgba(255,255,255,0.18); }
+    .install.copied { border-color: #22c55e; color: #22c55e; }
+    .copy-icon { opacity: 0.45; font-size: 0.82rem; transition: opacity 0.2s; }
+    .install:hover .copy-icon { opacity: 0.8; }
+
+    .links {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+
+    .links a:hover { color: var(--text); }
+
+    /* ── Sections ─────────────────────────────────────────────── */
+    .sections {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+    }
+
+    .section { margin-bottom: 4rem; }
+
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.855rem;
+      line-height: 1.7;
+    }
+
+    .kw  { color: #c792ea; }
+    .fn  { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .cm  { color: #546e7a; }
+    .num { color: #f78c6c; }
+
+    /* ── Config table ─────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.855rem;
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.035);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    td code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      background: var(--code-bg);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<section id="hero">
+  <div class="hero-content">
+    <span class="badge">npm package</span>
+    <h1>noise-wave-flow</h1>
+    <p class="subtitle">
+      Organic noise-field canvas animation with a wind-cursor effect.<br>
+      Framework-agnostic — React hook included.
+    </p>
+    <div class="install-wrap">
+      <div class="install" id="install-cmd" onclick="copyInstall()">
+        <span>npm install @elysian256/noise-wave-flow</span>
+        <span class="copy-icon" id="copy-icon">⎘</span>
+      </div>
+    </div>
+    <div class="links">
+      <a href="https://github.com/rohit-sagar256/noise-wave-flow" target="_blank">GitHub →</a>
+      <a href="https://www.npmjs.com/package/@elysian256/noise-wave-flow" target="_blank">npm →</a>
+    </div>
+  </div>
+</section>
+
+<div class="sections">
+
+  <div class="section">
+    <h2>Vanilla JS</h2>
+    <pre><code><span class="kw">import</span> { <span class="fn">mountNoiseFlow</span> } <span class="kw">from</span> <span class="str">'@elysian256/noise-wave-flow'</span>;
+
+<span class="cm">// Creates and injects a &lt;canvas&gt; automatically</span>
+<span class="kw">const</span> flow = <span class="fn">mountNoiseFlow</span>(document.<span class="fn">getElementById</span>(<span class="str">'hero'</span>), {
+  color: <span class="str">'255,255,255'</span>,
+  alpha: <span class="num">0.14</span>,
+});
+
+flow.<span class="fn">update</span>({ alpha: <span class="num">0.06</span> }); <span class="cm">// live-patch without restart</span>
+flow.<span class="fn">destroy</span>();               <span class="cm">// stop and remove canvas</span></code></pre>
+  </div>
+
+  <div class="section">
+    <h2>React</h2>
+    <pre><code><span class="kw">import</span> { <span class="fn">useNoiseFlow</span> } <span class="kw">from</span> <span class="str">'@elysian256/noise-wave-flow/react'</span>;
+
+<span class="kw">function</span> <span class="fn">Hero</span>() {
+  <span class="kw">const</span> { canvasRef, containerRef } = <span class="fn">useNoiseFlow</span>({
+    color: <span class="str">'255,255,255'</span>,
+    alpha: <span class="num">0.14</span>,
+  });
+
+  <span class="kw">return</span> (
+    &lt;<span class="fn">section</span> ref={containerRef} style={{ position: <span class="str">'relative'</span> }}&gt;
+      &lt;<span class="fn">canvas</span> ref={canvasRef} style={{
+        position: <span class="str">'absolute'</span>, inset: <span class="num">0</span>,
+        width: <span class="str">'100%'</span>, height: <span class="str">'100%'</span>, pointerEvents: <span class="str">'none'</span>,
+      }} /&gt;
+      &lt;<span class="fn">div</span> style={{ position: <span class="str">'relative'</span>, zIndex: <span class="num">1</span> }}&gt;
+        {<span class="cm">/* your content */</span>}
+      &lt;/<span class="fn">div</span>&gt;
+    &lt;/<span class="fn">section</span>&gt;
+  );
+}</code></pre>
+  </div>
+
+  <div class="section">
+    <h2>Config reference</h2>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Option</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+        <tr><td><code>spacing</code></td><td><code>28</code></td><td>Grid-point distance in px</td></tr>
+        <tr><td><code>steps</code></td><td><code>5</code></td><td>Streamline steps per seed point</td></tr>
+        <tr><td><code>stepLen</code></td><td><code>8</code></td><td>Px per step at full mouse intensity</td></tr>
+        <tr><td><code>idleStep</code></td><td><code>2.5</code></td><td>Px per step at idle</td></tr>
+        <tr><td><code>windRadius</code></td><td><code>200</code></td><td>Cursor wind influence radius in px</td></tr>
+        <tr><td><code>mouseLerp</code></td><td><code>0.07</code></td><td>Mouse position lerp speed (0–1)</td></tr>
+        <tr><td><code>windLerp</code></td><td><code>0.18</code></td><td>Wind velocity lerp speed (0–1)</td></tr>
+        <tr><td><code>intensityLerp</code></td><td><code>0.055</code></td><td>Hover fade-in / fade-out speed (0–1)</td></tr>
+        <tr><td><code>color</code></td><td><code>'255,255,255'</code></td><td>RGB string for rgba(), e.g. <code>'37,99,235'</code></td></tr>
+        <tr><td><code>alpha</code></td><td><code>0.14</code></td><td>Base opacity at idle</td></tr>
+        <tr><td><code>trackMouse</code></td><td><code>true</code></td><td>Enable wind-cursor effect</td></tr>
+        <tr><td><code>trackScroll</code></td><td><code>true</code></td><td>Enable scroll-drift on streamlines</td></tr>
+        <tr><td><code>worldOffset</code></td><td><code>null</code></td><td><code>{x,y}</code> | <code>() =&gt; {x,y}</code> | <code>'screen'</code> — offset noise coords across canvases</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Built by <a href="https://github.com/rohit-sagar256" target="_blank">Rohit Sagar</a>
+  at <a href="https://multioriontech.com" target="_blank">Multioriontech</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/rohit-sagar256/noise-wave-flow/blob/main/LICENSE" target="_blank">MIT License</a>
+</footer>
+
+<script type="module">
+  import { mountNoiseFlow } from 'https://esm.sh/@elysian256/noise-wave-flow@0.1.0';
+  mountNoiseFlow(document.getElementById('hero'), {
+    color: '255,255,255',
+    alpha: 0.11,
+    steps: 6,
+    spacing: 30,
+  });
+</script>
+
+<script>
+  function copyInstall() {
+    navigator.clipboard.writeText('npm install @elysian256/noise-wave-flow').then(() => {
+      const el = document.getElementById('install-cmd');
+      const icon = document.getElementById('copy-icon');
+      el.classList.add('copied');
+      icon.textContent = '✓';
+      setTimeout(() => {
+        el.classList.remove('copied');
+        icon.textContent = '⎘';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

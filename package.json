@@ -1,0 +1,68 @@
+{
+  "name": "@elysian256/noise-wave-flow",
+  "version": "0.1.0",
+  "description": "Organic noise-field canvas animation with wind-cursor effect. Framework-agnostic with a React hook included.",
+  "keywords": [
+    "canvas",
+    "animation",
+    "noise",
+    "flow-field",
+    "particle",
+    "react",
+    "interactive"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Rohit Sagar",
+    "url": "https://github.com/rohit-sagar256"
+  },
+  "contributors": [
+    {
+      "name": "Multioriontech",
+      "url": "https://multioriontech.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rohit-sagar256/noise-wave-flow.git"
+  },
+  "homepage": "https://github.com/rohit-sagar256/noise-wave-flow#readme",
+  "bugs": {
+    "url": "https://github.com/rohit-sagar256/noise-wave-flow/issues"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "peerDependencies": {
+    "react": ">=17"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}
